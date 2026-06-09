@@ -615,19 +615,42 @@
             const place = document.getElementById('date-place').value;
             const msg = document.getElementById('date-msg').value;
             
-            // Write payload locally
+            // Save locally as a backup
             localStorage.setItem('proposal_date', targetDate);
-            localStorage.setItem('proposal_food', food);
-            localStorage.setItem('proposal_place', place);
-            localStorage.setItem('proposal_msg', msg);
             
-            // Advance to custom loading state
+            // Package the data nicely for your email notification
+            const formData = new FormData();
+            formData.append('Preferred Date', targetDate);
+            formData.append('Favorite Food', food);
+            formData.append('Preferred Vibe', place);
+            formData.append('Special Message', msg || "No extra message left");
+
+            // Immediately move to the cute loading screen so she stays engaged
             goToSection('sec-loading');
             
-            setTimeout(() => {
-                initializeFinalLetter(targetDate);
-                goToSection('sec-letter');
-            }, 2500);
+            // Fire the email silently to your inbox
+            fetch('https://formspree.io/f/xkoabjde', { // <-- PASTE YOUR FORMSPREE URL HERE
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(() => {
+                // Smoothly transition to the final romantic letter after the loader finishes
+                setTimeout(() => {
+                    initializeFinalLetter(targetDate);
+                    goToSection('sec-letter');
+                }, 2500);
+            })
+            .catch((error) => {
+                console.log("Network error, but let's keep the date alive:", error);
+                // Fallback: even if the internet hiccups, don't ruin the moment for her
+                setTimeout(() => {
+                    initializeFinalLetter(targetDate);
+                    goToSection('sec-letter');
+                }, 2500);
+            });
         }
 
         function initializeFinalLetter(dateString) {
