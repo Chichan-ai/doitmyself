@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 System Urgent Notice: Shot Puno Protocol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0b10;
+            --bg-gradient: linear-gradient(135deg, #0a0b10 0%, #12131c 50%, #1a1226 100%);
+            --neon-gold: #FFB703;
+            --neon-pink: #FF007F;
+            --neon-glow-gold: rgba(255, 183, 3, 0.6);
+            --neon-glow-pink: rgba(255, 0, 127, 0.6);
+            --glass-card: rgba(20, 22, 33, 0.7);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-light: #E2E4F0;
+            --text-muted: #8F94B5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Fredoka', sans-serif;
+            color: #FFFFFF;
+        }
+
+        .terminal-text {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--neon-gold);
+            text-shadow: 0 0 8px var(--neon-glow-gold);
+        }
+
+        /* Background Particle System Canvas */
+        #beer-trail {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        #celebration-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .floating-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-item {
+            position: absolute;
+            bottom: -60px;
+            font-size: 28px;
+            opacity: 0.3;
+            animation: floatUp 7s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Sound System Toggle */
+        .audio-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 101;
+            background: var(--glass-card);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(12px);
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+        .audio-toggle:hover {
+            transform: scale(1.05);
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 12px var(--neon-glow-gold);
+        }
+
+        /* Cyber Glassmorphism Card Box */
+        .container {
+            width: 92%;
+            max-width: 550px;
+            background: var(--glass-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section {
+            display: none;
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Interactive Buttons */
+        .btn {
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--neon-gold), #FFD000);
+            color: #100a00;
+            box-shadow: 0 4px 15px var(--neon-glow-gold);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--neon-gold);
+        }
+
+        .btn-secondary {
+            background: #252836;
+            color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .headline {
+            font-size: 26px;
+            line-height: 1.4;
+            margin-bottom: 25px;
+            user-select: none;
+        }
+
+        /* Action Layout Grid */
+        .btn-wrap {
+            position: relative;
+            min-height: 140px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #btn-no {
+            position: relative;
+            z-index: 5;
+            transition: all 0.15s ease-out;
+        }
+
+        #btn-yes.glow-active {
+            animation: cyberPulse 1.2s infinite alternate;
+        }
+
+        @keyframes cyberPulse {
+            0% { box-shadow: 0 0 15px var(--neon-glow-gold); transform: scale(1); }
+            100% { box-shadow: 0 0 35px var(--neon-gold); transform: scale(1.05); }
+        }
+
+        .hint-message {
+            height: 24px;
+            font-weight: 700;
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-glow-pink);
+            margin-top: 15px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        /* Inputs & Interactive Forms */
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-family: 'Share Tech Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border-glass);
+            background: rgba(10, 11, 16, 0.6);
+            font-family: inherit;
+            font-size: 15px;
+            color: #FFFFFF;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 10px var(--neon-glow-gold);
+        }
+
+        select.form-control option {
+            background: var(--bg-dark);
+            color: #FFF;
+        }
+
+        /* Loading Block Processing */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 35px 0;
+        }
+        .loader div {
+            width: 16px;
+            height: 16px;
+            background: var(--neon-gold);
+            box-shadow: 0 0 10px var(--neon-gold);
+            border-radius: 50%;
+            animation: cubeBounce 0.6s infinite alternate;
+        }
+        .loader div:nth-child(2) { animation-delay: 0.15s; background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
+        .loader div:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes cubeBounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        /* Manifesto Letter Layout */
+        .letter-box {
+            text-align: left;
+            background: rgba(10, 11, 16, 0.8);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px dashed var(--neon-gold);
+            max-height: 380px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+        }
+
+        .letter-box p { margin-bottom: 14px; }
+        .letter-box ul { margin-left: 20px; margin-bottom: 14px; }
+        .letter-box li { margin-bottom: 6px; }
+
+        .countdown-container {
+            background: linear-gradient(90deg, #181124, #22141a);
+            padding: 16px;
+            border-radius: 12px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 16px;
+            color: var(--neon-gold);
+            text-shadow: 0 0 5px var(--neon-glow-gold);
+            margin-top: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 183, 3, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="beer-trail"></canvas>
+    <canvas id="celebration-canvas"></canvas>
+
+    <div class="floating-container" id="floating-items-container"></div>
+
+    <button class="audio-toggle" id="audio-toggle" onclick="toggleBgm()">
+        <span>🔊</span> <span id="audio-status">Enable Cyber-Vibe</span>
+    </button>
+
+    <div class="container">
+        <div id="sec-welcome" class="section active">
+            <p class="terminal-text" style="margin-bottom: 10px;">[ SYSTEM DIAGNOSTIC: DESYNC DETECTED ]</p>
+            <h1 class="headline" id="welcome-header" onclick="triggerEasterEgg()">Critical Alert! 🚨 Your system is reporting an extremely low blood-alcohol level...</h1>
+            <button class="btn btn-primary" onclick="goToSection('sec-question')">Deploy Countermeasures 🍻</button>
+        </div>
+
+        <div id="sec-question" class="section">
+            <div style="font-size: 60px; margin-bottom: 15px;">🍻🥃</div>
+            <h2 class="headline">G ka ba mag-shot/inuman session this week?</h2>
+            
+            <div class="btn-wrap" id="question-actions">
+                <button class="btn btn-primary" id="btn-yes" onclick="handleYesResponse()">G! SHOT PUNO! 🚀</button>
+                <button class="btn btn-secondary" id="btn-no" onmouseenter="evadeNoButton()" onclick="evadeNoButton()">Pass muna... 😅</button>
+            </div>
+            <p class="hint-message" id="no-hint-msg"></p>
+        </div>
+
+        <div id="sec-success" class="section">
+            <div style="font-size: 50px; margin-bottom: 15px;">🔥🏆</div>
+            <h2 style="margin-bottom: 10px;">Tama yarn! Sabi ko na nga ba lalaban ka!</h2>
+            <p style="margin-bottom: 25px; color: var(--text-muted); font-size: 15px;">Dahil jan anu plano mo?:</p>
+            
+            <form id="drinking-form" action="https://formspree.io/f/xvznraol" method="POST" onsubmit="handleFormSubmission(event)">
+                <div class="form-group">
+                    <label>Rebelyon Name: *</label>
+                    <input type="text" class="form-control" id="drink-name" name="Attendee Name" placeholder="Enter your name or callsign" required>
+                </div>
+                <div class="form-group">
+                    <label>Kelan Boy: *</label>
+                    <input type="date" class="form-control" id="drink-date" name="Execution Date" required>
+                </div>
+                <div class="form-group">
+                    <label>Gin na naman! (Alak / Poison): *</label>
+                    <input type="text" class="form-control" id="drink-type" name="Preferred Liquor" placeholder="e.g., Beer, Soju, Gin Bulag, Tequila, Whiskey" required>
+                </div>
+                <div class="form-group">
+                    <label>Anu Pulutan mo?: *</label>
+                    <select class="form-control" id="drink-food" name="Preferred Pulutan" required>
+                        <option value="Sizzling Sisig 🔥">Paa at leeg 🔥</option>
+                        <option value="Crispy Pata / Nachos 🍟">Crispy Pata / Nachos 🍟</option>
+                        <option value="Kikiam at Fishball 🐷">Kikiam at Fishball 🐷</option>
+                        <option value="Kahit Ano (Basta may yelo) 🧊">Kahit Ano (Basta may yelo) 🧊</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Anu suggestion mo? wag lang babae! (Optional):</label>
+                    <textarea class="form-control" id="drink-notes" name="Special Directives" rows="3" placeholder="Sino ang taga-buhos? No marupok talking allowed..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Finalize Mission Directives ⚡</button>
+            </form>
+        </div>
+
+        <div id="sec-loading" class="section">
+            <p class="terminal-text" style="font-size: 18px; margin-bottom: 10px;">[ INITIATING ALCOHOL COOLDOWN CONFIGS ]</p>
+            <h2>Encrypting bar inventory reservation...</h2>
+            <div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <p style="font-style: italic; color: var(--text-muted);">Calibrating your liver thresholds...</p>
+        </div>
+
+        <div id="sec-letter" class="section">
+            <h2 class="terminal-text" style="margin-bottom: 15px; font-size: 28px;">SESSION CODIFIED 📜</h2>
+            <div class="letter-box">
+                <p><strong>To the Resilient Warrior of the Glass, 👋🍻</strong></p>
+                <p>Congratulations! You have successfully bypassed the system's most evasive structural defensive barrier ("The Pass Button") and initialized the legendary level status.</p>
+                <p>Your commitment to maintaining healthy fluid dynamics has been verified by the council.</p>
+                <p><strong>By acknowledging this manifest, you strictly promise to follow these protocols:</strong></p>
+                <ul>
+                    <li>No logic-loop dropouts (Bawal mag-disappear nang walang paalam/Irish exit 🚶‍♂️❌)</li>
+                    <li>No running background scripts about your ex when intoxicated 📱💔</li>
+                    <li>To consume maximum pulutan properties proportionally</li>
+                    <li>To listen to bad jokes, high-fidelity arguments, and life stories intently</li>
+                </ul>
+                <p><strong>The deployment vector is set:</strong></p>
+                <p>Pour shots • Empty glasses • Debrief life anomalies • Wake up with premium regrets tomorrow.</p>
+                <p>See you at the assembly point!</p>
+                <p style="margin-top: 15px; color: var(--neon-gold);">Prepared with high structural enthusiasm,</p>
+                <p><strong>Your Ultimate Session Commander 😎🥃</strong></p>
+            </div>
+
+            <div class="countdown-container" id="countdown-clock">
+                Awaiting mission sync parameters... ⏳
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* --- CORE CONFIGS --- */
+        let attemptCount = 0;
+        let titleClicks = 0;
+        let countdownTimer;
+        
+        const rejectionComebacks = [
+            "Bawal KJ! Internal system error 😡",
+            "Magagalit si Lord ng Alak! 🍺",
+            "Atay mo lang 'to, wag kang matakot! 💀",
+            "Isang bucket lang naman, subukan mo ulit! 😭",
+            "The universe mandates: SHOT PUNO! 🌌"
+        ];
+
+        /* --- PROCEDURAL CYBER AUDIO (WEB AUDIO API) --- */
+        let audioContext = null;
+        let isBgmRunning = false;
+
+        function initAudioEngine() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function triggerFx(style) {
+            initAudioEngine();
+            if (!audioContext) return;
+
+            const osc = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            const curTime = audioContext.currentTime;
+
+            if (style === 'click') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(600, curTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, curTime + 0.08);
+                gainNode.gain.setValueAtTime(0.05, curTime);
+                gainNode.gain.linearRampToValueAtTime(0, curTime + 0.08);
+                osc.start(curTime);
+                osc.stop(curTime + 0.08);
+            } else if (style === 'evade') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, curTime);
+                osc.frequency.linearRampToValueAtTime(90, curTime + 0.12);
+                gainNode.gain.setValueAtTime(0.08, curTime);
+                gainNode.gain.linearRampToValueAtTime(0, curTime + 0.12);
+                osc.start(curTime);
+                osc.stop(curTime + 0.12);
+            } else if (style === 'cheers') {
+                [880, 1320, 1760].forEach((freq, idx) => {
+                    const o = audioContext.createOscillator();
+                    const g = audioContext.createGain();
+                    o.connect(g);
+                    g.connect(audioContext.destination);
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(freq, curTime + idx * 0.04);
+                    g.gain.setValueAtTime(0.06, curTime + idx * 0.04);
+                    g.gain.exponentialRampToValueAtTime(0.001, curTime + idx * 0.04 + 0.4);
+                    o.start(curTime + idx * 0.04);
+                    o.stop(curTime + idx * 0.04 + 0.4);
+                });
+            }
+        }
+
+        function startCyberBgm() {
+            initAudioEngine();
+            const notes = [110.00, 110.00, 130.81, 146.83, 98.00, 98.00, 116.54, 123.47];
+            let pulseStep = 0;
+
+            window.cyberLoop = setInterval(() => {
+                if (!isBgmRunning) return;
+                const now = audioContext.currentTime;
+                const o = audioContext.createOscillator();
+                const g = audioContext.createGain();
+                o.connect(g);
+                g.connect(audioContext.destination);
+                o.type = 'triangle';
+                o.frequency.setValueAtTime(notes[pulseStep % notes.length], now);
+                g.gain.setValueAtTime(0.04, now);
+                g.gain.linearRampToValueAtTime(0, now + 0.8);
+                o.start(now);
+                o.stop(now + 0.8);
+                pulseStep++;
+            }, 800);
+        }
+
+        function toggleBgm() {
+            initAudioEngine();
+            const textNode = document.getElementById('audio-status');
+            if (!isBgmRunning) {
+                isBgmRunning = true;
+                textNode.innerText = "Mute Cyber-Vibe";
+                if(audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                startCyberBgm();
+                triggerFx('click');
+            } else {
+                isBgmRunning = false;
+                textNode.innerText = "Enable Cyber-Vibe";
+                if (window.cyberLoop) clearInterval(window.cyberLoop);
+            }
+        }
+
+        /* --- MAIN SECTION NAVIGATION --- */
+        function goToSection(sectionId) {
+            triggerFx('click');
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        /* --- EXTREME EVASIVE NO BUTTON --- */
+        function evadeNoButton() {
+            triggerFx('evade');
+            const noBtn = document.getElementById('btn-no');
+            const yesBtn = document.getElementById('btn-yes');
+            const hintText = document.getElementById('no-hint-msg');
+            
+            attemptCount++;
+            hintText.innerText = rejectionComebacks[(attemptCount - 1) % rejectionComebacks.length];
+            
+            const actionArea = document.getElementById('question-actions');
+            const areaRect = actionArea.getBoundingClientRect();
+            
+            const boundaryX = areaRect.width - noBtn.offsetWidth;
+            const boundaryY = 240; 
+            
+            let deltaX = (Math.random() - 0.5) * boundaryX * 1.6;
+            let deltaY = (Math.random() - 0.5) * boundaryY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${deltaX}px`;
+            noBtn.style.top = `${deltaY}px`;
+            
+            let scaleDown = Math.max(0.35, 1 - attemptCount * 0.14);
+            let scaleUp = Math.min(2.4, 1 + attemptCount * 0.25);
+            
+            noBtn.style.transform = `scale(${scaleDown})`;
+            yesBtn.style.transform = `scale(${scaleUp})`;
+            
+            if (attemptCount >= 6) {
+                yesBtn.classList.add('glow-active');
+                noBtn.style.opacity = '0.05';
+                noBtn.style.pointerEvents = 'none';
+            }
+        }
+
+        function handleYesResponse() {
+            triggerFx('cheers');
+            initializeCelebration();
+            goToSection('sec-success');
+        }
+
+        /* --- FORM SUBMISSION HANDLING --- */
+        function handleFormSubmission(e) {
+            e.preventDefault();
+            triggerFx('click');
+            
+            // UPDATED: Capture Name element value
+            const attendeeName = document.getElementById('drink-name').value;
+            const chosenDate = document.getElementById('drink-date').value;
+            const chosenType = document.getElementById('drink-type').value;
+            const chosenFood = document.getElementById('drink-food').value;
+            const extraNotes = document.getElementById('drink-notes').value;
+            
+            localStorage.setItem('inuman_date', chosenDate);
+            
+            const payload = new FormData();
+            // UPDATED: Appending the attendee's name to the payload
+            payload.append('Attendee Name', attendeeName);
+            payload.append('Target Date', chosenDate);
+            payload.append('Liquor Paradigm', chosenType);
+            payload.append('Pulutan Config', chosenFood);
+            payload.append('Directives', extraNotes || "None provided");
+
+            const formActionUrl = e.target.getAttribute('action');
+            goToSection('sec-loading');
+            
+            // Delivers to Formspree silently in the background
+            fetch(formActionUrl, {
+                method: 'POST',
+                body: payload,
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(() => finalizeManifestoSetup(chosenDate))
+            .catch((err) => {
+                console.warn("Offline fallback activated:", err);
+                finalizeManifestoSetup(chosenDate);
+            });
+        }
+
+        function finalizeManifestoSetup(dateValue) {
+            setTimeout(() => {
+                const targetNode = document.getElementById('countdown-clock');
+                const parsedTarget = new Date(dateValue + 'T00:00:00');
+
+                if(countdownTimer) clearInterval(countdownTimer);
+
+                function tickClock() {
+                    const current = new Date();
+                    const remainder = parsedTarget - current;
+
+                    if (remainder <= 0) {
+                        targetNode.innerText = "🚀 OPERATIONAL WINDOW DETECTED. SHOT PUNO TIME! 🍻";
+                        clearInterval(countdownTimer);
+                        return;
+                    }
+
+                    const d = Math.floor(remainder / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((remainder % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((remainder % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((remainder % (1000 * 60)) / 1000);
+
+                    targetNode.innerText = `⏳ COUNTDOWN TO ASSEMBLY: ${d}D ${h}H ${m}M ${s}S`;
+                }
+
+                tickClock();
+                countdownTimer = setInterval(tickClock, 1000);
+                goToSection('sec-letter');
+            }, 2500);
+        }
+
+        /* --- SECRET SYSTEM EASTER EGG --- */
+        function triggerEasterEgg() {
+            titleClicks++;
+            if (titleClicks === 5) {
+                triggerFx('cheers');
+                alert("🔓 COGNITIVE INUMAN BYPASS OVERRIDE ACTIVE! Uncorking premium reservoirs... 🥃🔥");
+                for (let j = 0; j < 35; j++) {
+                    setTimeout(spawnAmbientItem, j * 90);
+                }
+                titleClicks = 0;
+            }
+        }
+
+        /* --- VISUAL EFFECTS: PARTICLE MOUSE TRAIL --- */
+        const trailCanvas = document.getElementById('beer-trail');
+        const tCtx = trailCanvas.getContext('2d');
+        let cursorPoints = [];
+
+        function layoutResizer() {
+            trailCanvas.width = window.innerWidth;
+            trailCanvas.height = window.innerHeight;
+            celebCanvas.width = window.innerWidth;
+            celebCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', layoutResizer);
+
+        window.addEventListener('mousemove', (evt) => {
+            if(Math.random() > 0.82) {
+                cursorPoints.push({
+                    x: evt.clientX,
+                    y: evt.clientY,
+                    opacity: 1,
+                    radius: Math.random() * 8 + 6,
+                    driftX: (Math.random() - 0.5) * 1.5,
+                    driftY: -Math.random() * 1.2 - 0.4
+                });
+            }
+        });
+
+        function renderGoldBubble(ctx, x, y, r, op) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(255, 183, 3, ${op})`;
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function animationLoop() {
+            tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+            for (let k = 0; k < cursorPoints.length; k++) {
+                let pt = cursorPoints[k];
+                pt.x += pt.driftX;
+                pt.y += pt.driftY;
+                pt.opacity -= 0.018;
+                renderGoldBubble(tCtx, pt.x, pt.y, pt.radius, pt.opacity);
+            }
+            cursorPoints = cursorPoints.filter(pt => pt.opacity > 0);
+            requestAnimationFrame(animationLoop);
+        }
+
+        /* --- VISUAL EFFECTS: FLOATING AMBIENT EMOBIS --- */
+        const itemsList = ['🍺', '🥃', '🍻', '🍷', '🥂', '🍋', '🧊'];
+        function spawnAmbientItem() {
+            const wrapBox = document.getElementById('floating-items-container');
+            const node = document.createElement('div');
+            node.classList.add('floating-item');
+            node.innerText = itemsList[Math.floor(Math.random() * itemsList.length)];
+            node.style.left = Math.random() * 100 + 'vw';
+            node.style.animationDuration = Math.random() * 3 + 5 + 's';
+            node.style.fontSize = Math.random() * 18 + 16 + 'px';
+            wrapBox.appendChild(node);
+            
+            setTimeout(() => { node.remove(); }, 8000);
+        }
+        setInterval(spawnAmbientItem, 1400);
+
+        /* --- VISUAL EFFECTS: SUCCESS CELEBRATION SHOWER --- */
+        const celebCanvas = document.getElementById('celebration-canvas');
+        const cCtx = celebCanvas.getContext('2d');
+        let arrayParticles = [];
+        let renderActive = false;
+
+        function initializeCelebration() {
+            renderActive = true;
+            arrayParticles = [];
+            const tintPalettes = ['#FFB703', '#FF007F', '#FB8500', '#023E8A', '#00B4D8', '#FFFFFF'];
+            
+            for (let n = 0; n < 140; n++) {
+                arrayParticles.push({
+                    x: Math.random() * celebCanvas.width,
+                    y: Math.random() * celebCanvas.height - celebCanvas.height,
+                    tint: tintPalettes[Math.floor(Math.random() * tintPalettes.length)],
+                    dimension: Math.random() * 7 + 4,
+                    fallY: Math.random() * 5 + 4,
+                    driftX: (Math.random() - 0.5) * 4,
+                    angle: Math.random() * 360,
+                    velocityRot: (Math.random() - 0.5) * 6
+                });
+            }
+        }
+
+        function celebrationLoop() {
+            cCtx.clearRect(0, 0, celebCanvas.width, celebCanvas.height);
+            if (renderActive) {
+                arrayParticles.forEach((part) => {
+                    part.y += part.fallY;
+                    part.x += part.driftX;
+                    part.angle += part.velocityRot;
+
+                    cCtx.save();
+                    cCtx.translate(part.x, part.y);
+                    cCtx.rotate((part.angle * Math.PI) / 180);
+                    cCtx.fillStyle = part.tint;
+                    cCtx.fillRect(-part.dimension / 2, -part.dimension / 2, part.dimension, part.dimension);
+                    cCtx.restore();
+
+                    if (part.y > celebCanvas.height) {
+                        part.y = -15;
+                        part.x = Math.random() * celebCanvas.width;
+                    }
+                });
+            }
+            requestAnimationFrame(celebrationLoop);
+        }
+
+        // Bootstrapping Setup
+        layoutResizer();
+        animationLoop();
+        celebrationLoop();
+    </script>
+</body>
+</html>
